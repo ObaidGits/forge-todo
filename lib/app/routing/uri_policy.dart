@@ -276,6 +276,7 @@ final class UriPolicy {
     '/fitness',
     '/insights',
     '/recovery',
+    '/account-sync',
     '/search',
     '/settings',
     '/settings/general',
