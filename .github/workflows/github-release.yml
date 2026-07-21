@@ -48,7 +48,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install --no-install-recommends -y \
             clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev \
-            libsecret-1-dev libkeybinder-3.0-dev fuse libfuse2
+            libsecret-1-dev libkeybinder-3.0-dev libayatana-appindicator3-dev \
+            fuse libfuse2
       - name: Verify toolchain and lockfile
         shell: bash
         run: |
@@ -95,6 +96,14 @@ jobs:
           flutter pub get --enforce-lockfile
       - name: Build Windows release (sync keys from secrets; empty = sync off)
         shell: bash
+        # local_auth_windows (via its transitive plugin) still includes
+        # <experimental/coroutine>, which the MSVC toolset on windows-2025
+        # promotes to a hard error (STL1011) unless this macro is defined. The
+        # CL environment variable is read by cl.exe for every compilation, so
+        # this silences the deprecation static_assert across all plugin targets
+        # without patching third-party CMake. Harmless preprocessor define only.
+        env:
+          CL: /D_SILENCE_EXPERIMENTAL_COROUTINE_DEPRECATION_WARNINGS
         run: |
           flutter build windows --release \
             --dart-define=FORGE_SUPABASE_URL=${{ secrets.SUPABASE_URL }} \
@@ -164,7 +173,9 @@ jobs:
           if [ -n "$ANDROID_KEYSTORE_BASE64" ] && [ -n "$ANDROID_KEYSTORE_PASSWORD" ] \
              && [ -n "$ANDROID_KEY_PASSWORD" ] && [ -n "$ANDROID_KEY_ALIAS" ]; then
             echo "Signing secrets present — configuring release signing."
-            echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > android/upload-keystore.jks
+            # Gradle resolves storeFile relative to the :app module, so the
+            # keystore must live in android/app/ and storeFile stays relative.
+            echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > android/app/upload-keystore.jks
             cat > android/key.properties <<EOF
           storePassword=$ANDROID_KEYSTORE_PASSWORD
           keyPassword=$ANDROID_KEY_PASSWORD
