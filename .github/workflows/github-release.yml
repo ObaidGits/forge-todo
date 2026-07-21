@@ -95,18 +95,22 @@ jobs:
           flutter --version
           flutter pub get --enforce-lockfile
       - name: Build Windows release (sync keys from secrets; empty = sync off)
-        shell: bash
-        # local_auth_windows (via its transitive plugin) still includes
-        # <experimental/coroutine>, which the MSVC toolset on windows-2025
-        # promotes to a hard error (STL1011) unless this macro is defined. The
-        # CL environment variable is read by cl.exe for every compilation, so
-        # this silences the deprecation static_assert across all plugin targets
-        # without patching third-party CMake. Harmless preprocessor define only.
+        # PowerShell (NOT bash): the CL define below starts with '/', and
+        # Git-Bash's MSYS path conversion rewrites such values into a bogus
+        # Windows path, which corrupted cl.exe and broke CMake compiler
+        # detection. PowerShell performs no such conversion, so the define
+        # reaches every cl.exe invocation intact.
+        shell: pwsh
+        # local_auth_windows still includes <experimental/coroutine>, which the
+        # MSVC toolset on windows-2025 promotes to a hard error (STL1011) unless
+        # this macro is defined. cl.exe reads the CL environment variable for
+        # every compilation, silencing the deprecation static_assert across all
+        # plugin targets without patching third-party CMake.
         env:
           CL: /D_SILENCE_EXPERIMENTAL_COROUTINE_DEPRECATION_WARNINGS
         run: |
-          flutter build windows --release \
-            --dart-define=FORGE_SUPABASE_URL=${{ secrets.SUPABASE_URL }} \
+          flutter build windows --release `
+            --dart-define=FORGE_SUPABASE_URL=${{ secrets.SUPABASE_URL }} `
             --dart-define=FORGE_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}
       - name: Resolve app version from pubspec
         id: ver
