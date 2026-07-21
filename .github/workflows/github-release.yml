@@ -65,7 +65,7 @@ jobs:
         shell: bash
         run: bash packaging/linux/build-appimage.sh
       - name: Upload AppImage artifact
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: forge-linux-appimage
           path: Forge-*-x86_64.AppImage
@@ -118,7 +118,7 @@ jobs:
             "/DAppVersion=${{ steps.ver.outputs.version }}" `
             "packaging\windows\forge.iss"
       - name: Upload installer artifact
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: forge-windows-setup
           path: packaging/windows/Forge-*-windows-setup.exe
@@ -181,7 +181,7 @@ jobs:
             --dart-define=FORGE_SUPABASE_URL=${{ secrets.SUPABASE_URL }} \
             --dart-define=FORGE_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}
       - name: Upload APK artifact
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: forge-android-apk
           path: build/app/outputs/flutter-apk/app-release.apk
