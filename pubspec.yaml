@@ -54,7 +54,7 @@ dependencies:
   # the mobile branch of bootstrap's base-directory resolver; desktop keeps the
   # dependency-free environment lookup, so desktop/Linux behavior is unchanged.
   path_provider: ^2.1.5
-  pointycastle: 3.9.1
+  pointycastle: 4.0.0
   # The native SQLite provider. The `hooks.user_defines` block below selects the
   # sqlite3mc source so the bundled native asset is the encrypted (multiple
   # ciphers) build the encrypted store opens with a `PRAGMA key` (ADR-0001).
