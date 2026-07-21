@@ -59,7 +59,7 @@ dependencies:
   # sqlite3mc source so the bundled native asset is the encrypted (multiple
   # ciphers) build the encrypted store opens with a `PRAGMA key` (ADR-0001).
   receive_sharing_intent: 1.8.1
-  sqlite3: 3.4.0
+  sqlite3: 3.5.0
   timezone: 0.11.1
   # Desktop "sticky widget": system tray icon + context menu. Used ONLY behind
   # lib/app/desktop/*, guarded by platform so Android/iOS is unaffected.
