@@ -102,7 +102,7 @@ Under the hood it uses an optional **Supabase** backend with **Row-Level Securit
 
 ## 📥 Download & Install
 
-Grab the latest build for your platform from the **[Releases](https://github.com/ObaidGits/forge/releases)** page.
+Grab the latest build for your platform from the **[Releases](https://github.com/ObaidGits/forge-todo/releases)** page.
 
 ### 🤖 Android (APK)
 1. Download `Forge-<version>.apk` to your phone.
