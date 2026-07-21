@@ -1,0 +1,763 @@
+{
+  "claimBoundary": "Passing this matrix verifies only the automatable WCAG 2.2 AA slice on the tested host target. It does not certify TalkBack, VoiceOver, Narrator, or Orca output, physical touch/keyboard usability, packaged OS behavior, or full WCAG 2.2 AA conformance. No platform is Full support; every manual follow-up below is REQUIRED and NOT RUN.",
+  "claimPolicy": {
+    "blocked": "At least one required dimension is unavailable with no tested alternative path.",
+    "degraded": "Every applicable dimension is verified but at least one carries a declared, visible degradation.",
+    "full": "Every applicable dimension is automated-verified and has no unresolved device/AT/OS follow-up.",
+    "unverified": "At least one applicable dimension lacks platform/AT evidence; Full is prohibited."
+  },
+  "dimensions": [
+    "notification",
+    "background",
+    "widget",
+    "keyboard",
+    "semantics",
+    "assistiveTechnology"
+  ],
+  "generatedAt": "2026-07-19T00:00:00.000Z",
+  "inRepoEvidence": {
+    "A11Y-CONTRAST": {
+      "requirements": [
+        "NFR-A11Y-001"
+      ],
+      "sources": [
+        {
+          "anyToken": [
+            "textContrastGuideline"
+          ],
+          "path": "test/widget/accessibility/wcag_capability_matrix_test.dart"
+        },
+        {
+          "anyToken": [
+            "textContrastGuideline"
+          ],
+          "path": "test/widget/backup/recovery_center_screen_test.dart"
+        }
+      ],
+      "summary": "Text contrast is asserted for representative surfaces via textContrastGuideline; forced-colors/high-contrast rendering remains a manual follow-up.",
+      "wcagCriteria": [
+        "1.4.3"
+      ]
+    },
+    "A11Y-DESKTOP-MENU-SHORTCUTS": {
+      "requirements": [
+        "NFR-A11Y-001",
+        "NFR-A11Y-003"
+      ],
+      "sources": [
+        {
+          "anyToken": [
+            "MenuBar",
+            "Shortcut",
+            "menu"
+          ],
+          "path": "test/widget/app/desktop_menu_bar_test.dart"
+        },
+        {
+          "anyToken": [
+            "palette",
+            "Palette"
+          ],
+          "path": "test/widget/search/command_palette_test.dart"
+        }
+      ],
+      "summary": "Desktop menu bar and command palette expose discoverable, keyboard-operable shortcuts driving the same routes.",
+      "wcagCriteria": [
+        "2.1.1",
+        "4.1.2"
+      ]
+    },
+    "A11Y-KEYBOARD-OPERABILITY": {
+      "requirements": [
+        "NFR-A11Y-001",
+        "NFR-A11Y-003"
+      ],
+      "sources": [
+        {
+          "anyToken": [
+            "LogicalKeyboardKey",
+            "sendKeyEvent"
+          ],
+          "path": "test/widget/accessibility/wcag_capability_matrix_test.dart"
+        },
+        {
+          "anyToken": [
+            "LogicalKeyboardKey",
+            "sendKeyEvent"
+          ],
+          "path": "test/widget/goals/goals_accessibility_test.dart"
+        }
+      ],
+      "summary": "Primary actions are reachable and activatable from the keyboard (focus + LogicalKeyboardKey activation), not pointer-only.",
+      "wcagCriteria": [
+        "2.1.1"
+      ]
+    },
+    "A11Y-NO-DRAG-ONLY": {
+      "requirements": [
+        "NFR-A11Y-001",
+        "NFR-A11Y-002"
+      ],
+      "sources": [
+        {
+          "anyToken": [
+            "Move "
+          ],
+          "path": "test/widget/accessibility/wcag_capability_matrix_test.dart"
+        },
+        {
+          "anyToken": [
+            "Move Section"
+          ],
+          "path": "test/widget/goals/roadmap_outline_screen_test.dart"
+        }
+      ],
+      "summary": "Reorder and other pointer gestures always have a discrete, named, keyboard-operable alternative (Move up/down), never drag-only.",
+      "wcagCriteria": [
+        "2.5.7"
+      ]
+    },
+    "A11Y-REDUCED-MOTION": {
+      "requirements": [
+        "NFR-A11Y-001",
+        "NFR-A11Y-003"
+      ],
+      "sources": [
+        {
+          "anyToken": [
+            "disableAnimations"
+          ],
+          "path": "test/widget/accessibility/wcag_capability_matrix_test.dart"
+        },
+        {
+          "anyToken": [
+            "disableAnimations"
+          ],
+          "path": "test/core/ui/forge_motion_test.dart"
+        }
+      ],
+      "summary": "Reduced-motion (disableAnimations) removes non-essential animation; state changes still complete with a non-motion cue.",
+      "wcagCriteria": [
+        "2.3.3"
+      ]
+    },
+    "A11Y-SEMANTICS-NAME-ROLE-STATE": {
+      "requirements": [
+        "NFR-A11Y-001",
+        "NFR-A11Y-003"
+      ],
+      "sources": [
+        {
+          "anyToken": [
+            "ensureSemantics",
+            "labeledTapTargetGuideline"
+          ],
+          "path": "test/widget/accessibility/wcag_capability_matrix_test.dart"
+        },
+        {
+          "anyToken": [
+            "labeledTapTargetGuideline"
+          ],
+          "path": "test/widget/home/today_screen_test.dart"
+        },
+        {
+          "anyToken": [
+            "bySemanticsLabel"
+          ],
+          "path": "test/widget/search/search_screen_test.dart"
+        },
+        {
+          "anyToken": [
+            "bySemanticsLabel",
+            "ensureSemantics"
+          ],
+          "path": "test/widget/habits/habit_list_screen_test.dart"
+        }
+      ],
+      "summary": "Interactive controls expose accessible name/role/state via Semantics; screens are asserted with the semantics tree enabled and labelled-tap-target guideline.",
+      "wcagCriteria": [
+        "1.3.1",
+        "4.1.2"
+      ]
+    },
+    "A11Y-TARGET-SIZE": {
+      "requirements": [
+        "NFR-A11Y-002"
+      ],
+      "sources": [
+        {
+          "anyToken": [
+            "androidTapTargetGuideline"
+          ],
+          "path": "test/widget/accessibility/wcag_capability_matrix_test.dart"
+        },
+        {
+          "anyToken": [
+            "androidTapTargetGuideline"
+          ],
+          "path": "test/widget/home/today_screen_test.dart"
+        },
+        {
+          "anyToken": [
+            "androidTapTargetGuideline"
+          ],
+          "path": "test/widget/goals/goals_accessibility_test.dart"
+        },
+        {
+          "anyToken": [
+            "androidTapTargetGuideline"
+          ],
+          "path": "test/widget/security/recovery_mode_screen_test.dart"
+        }
+      ],
+      "summary": "Primary touch controls meet the 48x48 dp minimum via androidTapTargetGuideline across representative screens.",
+      "wcagCriteria": [
+        "2.5.8"
+      ]
+    },
+    "A11Y-TEXT-SCALE": {
+      "requirements": [
+        "NFR-A11Y-001",
+        "NFR-A11Y-003"
+      ],
+      "sources": [
+        {
+          "anyToken": [
+            "textScale",
+            "TextScaler"
+          ],
+          "path": "test/widget/accessibility/wcag_capability_matrix_test.dart"
+        },
+        {
+          "anyToken": [
+            "textScale"
+          ],
+          "path": "test/widget/goals/goals_accessibility_test.dart"
+        },
+        {
+          "anyToken": [
+            "textScale",
+            "TextScaler"
+          ],
+          "path": "test/widget/notes/notes_text_scale_test.dart"
+        }
+      ],
+      "summary": "Core screens remain usable without layout overflow at 200% text (TextScaler.linear(2)).",
+      "wcagCriteria": [
+        "1.4.4",
+        "1.4.10"
+      ]
+    }
+  },
+  "manualEvidence": {
+    "MANUAL-A11Y-ATSPI-CLAIMED-001": "Each exact Linux distribution + desktop + package + supported AT-SPI combination in this matrix: Orca traversal, accessible-tree inspection, announcements, native dialogs, high contrast, lock, backup, and recovery. No generic 'Linux passed' result is acceptable.",
+    "MANUAL-A11Y-BACKGROUND-DESKTOP-PACKAGED-001": "Packaged Windows and each claimed Linux combination: background/resume reconciliation and accessible reminder-diagnostics surface after wake.",
+    "MANUAL-A11Y-BACKGROUND-MOBILE-PHYSICAL-001": "Android and supported iOS physical devices: opportunistic background reconciliation under Doze/App Standby/BackgroundTasks; correctness must never depend on background firing, and reminder diagnostics must stay accessible.",
+    "MANUAL-A11Y-FORCED-CONTRAST-001": "Windows High Contrast and claimed Linux high/forced-contrast behavior plus supported mobile contrast settings: boundaries, states, custom painting, charts, focus, and scrims.",
+    "MANUAL-A11Y-MAGNIFICATION-001": "Representative mobile and desktop magnification/display zoom: focus follows viewport; dialogs, menus, errors, and recovery copy remain reachable.",
+    "MANUAL-A11Y-NARRATOR-PACKAGED-001": "Packaged Windows target on representative hardware: Narrator scan/read/control modes, keyboard-only traversal, menus/shortcuts, splitter, file-picker return, app lock, backup, Recovery Mode, high contrast, and 200% text.",
+    "MANUAL-A11Y-NOTIFY-ANDROID-PHYSICAL-001": "Android physical devices across supported API levels: runtime notification permission, exact-alarm absent/present, Doze/battery restriction, reboot re-arm, representative OEM background limits, and notification action delivery/redaction accessibility.",
+    "MANUAL-A11Y-NOTIFY-IOS-PHYSICAL-001": "Supported iOS physical device: permission states, pending-request quota reconciliation, terminated/background delivery, timezone change, and notification action accessibility.",
+    "MANUAL-A11Y-NOTIFY-LINUX-CLAIMED-001": "Each claimed Linux distribution + desktop: freedesktop notification daemon presence, action support, and Orca-announced notification accessibility.",
+    "MANUAL-A11Y-NOTIFY-WINDOWS-PACKAGED-001": "Packaged Windows target with registered package identity: toast scheduling/actions, Action Center accessibility with Narrator, and timezone reconciliation.",
+    "MANUAL-A11Y-PRIVACY-SURFACES-001": "Physical/mobile and packaged desktop checks of notification, widget, app-switcher/recent-app, window preview, background/resume, restoration, and Recovery Mode redaction in every lock state.",
+    "MANUAL-A11Y-SWITCH-ANDROID-PHYSICAL-001": "Android physical device with platform switch access: sequential scan order, activation, menus, reorder, recurrence choices, editor toolbar/body, and recovery actions.",
+    "MANUAL-A11Y-SWITCH-DESKTOP-001": "Windows and every claimed Linux combination using switch-equivalent keyboard/sequential input: no pointer-only, drag-only, hover-only, right-click-only, or double-click-only command.",
+    "MANUAL-A11Y-SWITCH-IOS-PHYSICAL-001": "Supported iOS physical device with Switch Control: sequential/group scan, activation, escape/back, editor and destructive confirmation paths.",
+    "MANUAL-A11Y-TALKBACK-PHYSICAL-001": "Android physical representative device(s): TalkBack read/swipe/activate, Explore by Touch, hardware keyboard where supported, focus recovery, live regions, lock/privacy, and 200% text.",
+    "MANUAL-A11Y-VOICEOVER-PHYSICAL-001": "Supported iOS physical representative device(s) when the V1 claim applies: VoiceOver rotor/read/activate, hardware keyboard, focus recovery, live regions, widgets/lock privacy, and 200% text.",
+    "MANUAL-A11Y-WIDGET-ANDROID-PHYSICAL-001": "Android physical device: home-screen widget sizes, locked-surface privacy redaction, stale-snapshot state, deep links, and committed widget actions with TalkBack/switch access.",
+    "MANUAL-A11Y-WIDGET-IOS-PHYSICAL-001": "Supported iOS physical device: WidgetKit sizes, locked-surface privacy, stale snapshot, deep links, and committed actions with VoiceOver/Switch Control."
+  },
+  "matrixVersion": "1.0.0",
+  "platforms": [
+    "android",
+    "ios",
+    "windows",
+    "linux"
+  ],
+  "requirements": [
+    "NFR-A11Y-001",
+    "NFR-A11Y-002",
+    "NFR-A11Y-003"
+  ],
+  "schemaVersion": "forge-a11y-capability-matrix/v1",
+  "statePolicy": {
+    "automated-verified": "The automatable slice of this dimension is covered by real in-repo tests that pass on the tested host target. Any experiential slice (real assistive technology, hardware keyboard, platform conventions) is named as a manual follow-up.",
+    "manual-required": "This dimension cannot be established in-repo. It is entirely gated on a physical device, real assistive technology, or a real OS/package, and every follow-up is enumerated as a MANUAL-* item.",
+    "not-applicable": "This dimension does not exist on this platform (for example, mobile home-screen widgets on desktop)."
+  },
+  "targets": [
+    {
+      "dimensions": {
+        "assistiveTechnology": {
+          "declaredDegradation": "TalkBack and Switch Access output is platform-generated and can differ from the Flutter semantics tree; it cannot be produced in-repo.",
+          "inRepoEvidence": [],
+          "manualFollowUps": [
+            "MANUAL-A11Y-TALKBACK-PHYSICAL-001",
+            "MANUAL-A11Y-SWITCH-ANDROID-PHYSICAL-001",
+            "MANUAL-A11Y-MAGNIFICATION-001"
+          ],
+          "state": "manual-required"
+        },
+        "background": {
+          "declaredDegradation": "BackgroundScheduler.configure() may return unavailable/permissionDenied; correctness never depends on a background callback firing (design non-goal). Physical Doze/App-Standby behavior is device-gated.",
+          "inRepoEvidence": [],
+          "manualFollowUps": [
+            "MANUAL-A11Y-BACKGROUND-MOBILE-PHYSICAL-001"
+          ],
+          "state": "manual-required"
+        },
+        "keyboard": {
+          "declaredDegradation": null,
+          "inRepoEvidence": [
+            "A11Y-KEYBOARD-OPERABILITY",
+            "A11Y-TARGET-SIZE",
+            "A11Y-NO-DRAG-ONLY"
+          ],
+          "manualFollowUps": [
+            "MANUAL-A11Y-TALKBACK-PHYSICAL-001",
+            "MANUAL-A11Y-SWITCH-ANDROID-PHYSICAL-001"
+          ],
+          "state": "automated-verified"
+        },
+        "notification": {
+          "declaredDegradation": "Until physical-device evidence exists the app treats Android notifications as available-but-flagged: SchedulerCapability reports actionsSupported=false and exactAlarms=false while the scheduling matrix stays unverified, so reminders schedule best-effort and surface honest ReminderDiagnostic codes instead of silently failing.",
+          "inRepoEvidence": [],
+          "manualFollowUps": [
+            "MANUAL-A11Y-NOTIFY-ANDROID-PHYSICAL-001",
+            "MANUAL-A11Y-PRIVACY-SURFACES-001"
+          ],
+          "state": "manual-required"
+        },
+        "semantics": {
+          "declaredDegradation": null,
+          "inRepoEvidence": [
+            "A11Y-SEMANTICS-NAME-ROLE-STATE",
+            "A11Y-TARGET-SIZE",
+            "A11Y-TEXT-SCALE",
+            "A11Y-REDUCED-MOTION"
+          ],
+          "manualFollowUps": [
+            "MANUAL-A11Y-TALKBACK-PHYSICAL-001"
+          ],
+          "state": "automated-verified"
+        },
+        "widget": {
+          "declaredDegradation": "ForgeWidgetBridge returns FailureKind.unavailableCapability on unhandled/timed-out actions; snapshot redaction and locked-surface privacy require the native home-screen widget host on a device.",
+          "inRepoEvidence": [],
+          "manualFollowUps": [
+            "MANUAL-A11Y-WIDGET-ANDROID-PHYSICAL-001",
+            "MANUAL-A11Y-PRIVACY-SURFACES-001"
+          ],
+          "state": "manual-required"
+        }
+      },
+      "platform": "android",
+      "supportClaim": "unverified"
+    },
+    {
+      "dimensions": {
+        "assistiveTechnology": {
+          "declaredDegradation": "VoiceOver and Switch Control output is platform-generated; iOS is build/spike-only until the V1 support gate, so no MVP inference follows from a build.",
+          "inRepoEvidence": [],
+          "manualFollowUps": [
+            "MANUAL-A11Y-VOICEOVER-PHYSICAL-001",
+            "MANUAL-A11Y-SWITCH-IOS-PHYSICAL-001",
+            "MANUAL-A11Y-MAGNIFICATION-001"
+          ],
+          "state": "manual-required"
+        },
+        "background": {
+          "declaredDegradation": "BackgroundTasks opportunism is best-effort; correctness never depends on it. Tests SHALL never assert a fixed background frequency.",
+          "inRepoEvidence": [],
+          "manualFollowUps": [
+            "MANUAL-A11Y-BACKGROUND-MOBILE-PHYSICAL-001"
+          ],
+          "state": "manual-required"
+        },
+        "keyboard": {
+          "declaredDegradation": null,
+          "inRepoEvidence": [
+            "A11Y-KEYBOARD-OPERABILITY",
+            "A11Y-TARGET-SIZE",
+            "A11Y-NO-DRAG-ONLY"
+          ],
+          "manualFollowUps": [
+            "MANUAL-A11Y-VOICEOVER-PHYSICAL-001",
+            "MANUAL-A11Y-SWITCH-IOS-PHYSICAL-001"
+          ],
+          "state": "automated-verified"
+        },
+        "notification": {
+          "declaredDegradation": "iOS notifications degrade to best-effort with a bounded pending-request quota; SchedulerCapability actionsSupported/exactAlarms stay false until device evidence exists. Never asserts a fixed background frequency.",
+          "inRepoEvidence": [],
+          "manualFollowUps": [
+            "MANUAL-A11Y-NOTIFY-IOS-PHYSICAL-001",
+            "MANUAL-A11Y-PRIVACY-SURFACES-001"
+          ],
+          "state": "manual-required"
+        },
+        "semantics": {
+          "declaredDegradation": null,
+          "inRepoEvidence": [
+            "A11Y-SEMANTICS-NAME-ROLE-STATE",
+            "A11Y-TARGET-SIZE",
+            "A11Y-TEXT-SCALE",
+            "A11Y-REDUCED-MOTION"
+          ],
+          "manualFollowUps": [
+            "MANUAL-A11Y-VOICEOVER-PHYSICAL-001"
+          ],
+          "state": "automated-verified"
+        },
+        "widget": {
+          "declaredDegradation": "WidgetKit snapshots and shared-container behavior require a signed build on a device; the bridge fails closed with unavailableCapability off-device.",
+          "inRepoEvidence": [],
+          "manualFollowUps": [
+            "MANUAL-A11Y-WIDGET-IOS-PHYSICAL-001",
+            "MANUAL-A11Y-PRIVACY-SURFACES-001"
+          ],
+          "state": "manual-required"
+        }
+      },
+      "platform": "ios",
+      "supportClaim": "unverified"
+    },
+    {
+      "dimensions": {
+        "assistiveTechnology": {
+          "declaredDegradation": "Orca/AT-SPI output is generated by the desktop stack and must be verified on each exact claimed distribution + desktop + package combination.",
+          "inRepoEvidence": [],
+          "manualFollowUps": [
+            "MANUAL-A11Y-ATSPI-CLAIMED-001",
+            "MANUAL-A11Y-SWITCH-DESKTOP-001",
+            "MANUAL-A11Y-MAGNIFICATION-001",
+            "MANUAL-A11Y-FORCED-CONTRAST-001"
+          ],
+          "state": "manual-required"
+        },
+        "background": {
+          "declaredDegradation": "Background/resume reconciliation is opportunistic; correctness never depends on it. Wake behavior needs each claimed packaged desktop combination.",
+          "inRepoEvidence": [],
+          "manualFollowUps": [
+            "MANUAL-A11Y-BACKGROUND-DESKTOP-PACKAGED-001"
+          ],
+          "state": "manual-required"
+        },
+        "keyboard": {
+          "declaredDegradation": null,
+          "inRepoEvidence": [
+            "A11Y-KEYBOARD-OPERABILITY",
+            "A11Y-DESKTOP-MENU-SHORTCUTS",
+            "A11Y-TARGET-SIZE",
+            "A11Y-NO-DRAG-ONLY"
+          ],
+          "manualFollowUps": [
+            "MANUAL-A11Y-ATSPI-CLAIMED-001",
+            "MANUAL-A11Y-SWITCH-DESKTOP-001"
+          ],
+          "state": "automated-verified"
+        },
+        "notification": {
+          "declaredDegradation": "freedesktop notification daemon presence and action support vary by distribution/desktop; untested combinations are unsupported, never inferred from a nearby result.",
+          "inRepoEvidence": [],
+          "manualFollowUps": [
+            "MANUAL-A11Y-NOTIFY-LINUX-CLAIMED-001",
+            "MANUAL-A11Y-PRIVACY-SURFACES-001"
+          ],
+          "state": "manual-required"
+        },
+        "semantics": {
+          "declaredDegradation": null,
+          "inRepoEvidence": [
+            "A11Y-SEMANTICS-NAME-ROLE-STATE",
+            "A11Y-TARGET-SIZE",
+            "A11Y-TEXT-SCALE",
+            "A11Y-CONTRAST"
+          ],
+          "manualFollowUps": [
+            "MANUAL-A11Y-ATSPI-CLAIMED-001",
+            "MANUAL-A11Y-FORCED-CONTRAST-001"
+          ],
+          "state": "automated-verified"
+        },
+        "widget": {
+          "declaredDegradation": "Linux has no mobile home-screen widget surface; desktop companion windows are Post-V1 and out of scope for this matrix.",
+          "inRepoEvidence": [],
+          "manualFollowUps": [],
+          "state": "not-applicable"
+        }
+      },
+      "platform": "linux",
+      "supportClaim": "unverified"
+    },
+    {
+      "dimensions": {
+        "assistiveTechnology": {
+          "declaredDegradation": "Narrator scan/read/control-mode output is generated by Windows and requires a packaged build on representative hardware.",
+          "inRepoEvidence": [],
+          "manualFollowUps": [
+            "MANUAL-A11Y-NARRATOR-PACKAGED-001",
+            "MANUAL-A11Y-SWITCH-DESKTOP-001",
+            "MANUAL-A11Y-MAGNIFICATION-001",
+            "MANUAL-A11Y-FORCED-CONTRAST-001"
+          ],
+          "state": "manual-required"
+        },
+        "background": {
+          "declaredDegradation": "Background/resume reconciliation is opportunistic; correctness never depends on it. Wake behavior needs a packaged desktop build.",
+          "inRepoEvidence": [],
+          "manualFollowUps": [
+            "MANUAL-A11Y-BACKGROUND-DESKTOP-PACKAGED-001"
+          ],
+          "state": "manual-required"
+        },
+        "keyboard": {
+          "declaredDegradation": null,
+          "inRepoEvidence": [
+            "A11Y-KEYBOARD-OPERABILITY",
+            "A11Y-DESKTOP-MENU-SHORTCUTS",
+            "A11Y-TARGET-SIZE",
+            "A11Y-NO-DRAG-ONLY"
+          ],
+          "manualFollowUps": [
+            "MANUAL-A11Y-NARRATOR-PACKAGED-001",
+            "MANUAL-A11Y-SWITCH-DESKTOP-001"
+          ],
+          "state": "automated-verified"
+        },
+        "notification": {
+          "declaredDegradation": "Windows toast scheduling/actions and timezone reconciliation require a packaged build with registered package identity; the scheduling matrix stays unverified until that exists.",
+          "inRepoEvidence": [],
+          "manualFollowUps": [
+            "MANUAL-A11Y-NOTIFY-WINDOWS-PACKAGED-001",
+            "MANUAL-A11Y-PRIVACY-SURFACES-001"
+          ],
+          "state": "manual-required"
+        },
+        "semantics": {
+          "declaredDegradation": null,
+          "inRepoEvidence": [
+            "A11Y-SEMANTICS-NAME-ROLE-STATE",
+            "A11Y-TARGET-SIZE",
+            "A11Y-TEXT-SCALE",
+            "A11Y-CONTRAST"
+          ],
+          "manualFollowUps": [
+            "MANUAL-A11Y-NARRATOR-PACKAGED-001",
+            "MANUAL-A11Y-FORCED-CONTRAST-001"
+          ],
+          "state": "automated-verified"
+        },
+        "widget": {
+          "declaredDegradation": "Windows has no mobile home-screen widget surface; desktop companion windows are Post-V1 and out of scope for this matrix.",
+          "inRepoEvidence": [],
+          "manualFollowUps": [],
+          "state": "not-applicable"
+        }
+      },
+      "platform": "windows",
+      "supportClaim": "unverified"
+    }
+  ],
+  "task": "12.3",
+  "wcagCoverage": [
+    {
+      "automatable": "partial",
+      "criterion": "1.3.1",
+      "inRepoEvidence": [
+        "A11Y-SEMANTICS-NAME-ROLE-STATE"
+      ],
+      "level": "A",
+      "manualFollowUps": [
+        "MANUAL-A11Y-TALKBACK-PHYSICAL-001",
+        "MANUAL-A11Y-VOICEOVER-PHYSICAL-001",
+        "MANUAL-A11Y-NARRATOR-PACKAGED-001",
+        "MANUAL-A11Y-ATSPI-CLAIMED-001"
+      ],
+      "title": "Info and Relationships"
+    },
+    {
+      "automatable": "partial",
+      "criterion": "1.4.1",
+      "inRepoEvidence": [
+        "A11Y-SEMANTICS-NAME-ROLE-STATE"
+      ],
+      "level": "A",
+      "manualFollowUps": [
+        "MANUAL-A11Y-FORCED-CONTRAST-001"
+      ],
+      "title": "Use of Color"
+    },
+    {
+      "automatable": "partial",
+      "criterion": "1.4.3",
+      "inRepoEvidence": [
+        "A11Y-CONTRAST"
+      ],
+      "level": "AA",
+      "manualFollowUps": [
+        "MANUAL-A11Y-FORCED-CONTRAST-001"
+      ],
+      "title": "Contrast (Minimum)"
+    },
+    {
+      "automatable": "yes",
+      "criterion": "1.4.4",
+      "inRepoEvidence": [
+        "A11Y-TEXT-SCALE"
+      ],
+      "level": "AA",
+      "manualFollowUps": [
+        "MANUAL-A11Y-MAGNIFICATION-001"
+      ],
+      "title": "Resize Text"
+    },
+    {
+      "automatable": "partial",
+      "criterion": "1.4.10",
+      "inRepoEvidence": [
+        "A11Y-TEXT-SCALE"
+      ],
+      "level": "AA",
+      "manualFollowUps": [
+        "MANUAL-A11Y-MAGNIFICATION-001"
+      ],
+      "title": "Reflow"
+    },
+    {
+      "automatable": "no",
+      "criterion": "1.4.11",
+      "inRepoEvidence": [],
+      "level": "AA",
+      "manualFollowUps": [
+        "MANUAL-A11Y-FORCED-CONTRAST-001"
+      ],
+      "title": "Non-text Contrast"
+    },
+    {
+      "automatable": "yes",
+      "criterion": "2.1.1",
+      "inRepoEvidence": [
+        "A11Y-KEYBOARD-OPERABILITY",
+        "A11Y-DESKTOP-MENU-SHORTCUTS"
+      ],
+      "level": "A",
+      "manualFollowUps": [
+        "MANUAL-A11Y-NARRATOR-PACKAGED-001",
+        "MANUAL-A11Y-ATSPI-CLAIMED-001",
+        "MANUAL-A11Y-SWITCH-DESKTOP-001"
+      ],
+      "title": "Keyboard"
+    },
+    {
+      "automatable": "yes",
+      "criterion": "2.3.3",
+      "inRepoEvidence": [
+        "A11Y-REDUCED-MOTION"
+      ],
+      "level": "AAA-adopted",
+      "manualFollowUps": [
+        "MANUAL-A11Y-MAGNIFICATION-001"
+      ],
+      "title": "Animation from Interactions"
+    },
+    {
+      "automatable": "partial",
+      "criterion": "2.4.3",
+      "inRepoEvidence": [
+        "A11Y-KEYBOARD-OPERABILITY"
+      ],
+      "level": "A",
+      "manualFollowUps": [
+        "MANUAL-A11Y-TALKBACK-PHYSICAL-001",
+        "MANUAL-A11Y-VOICEOVER-PHYSICAL-001",
+        "MANUAL-A11Y-NARRATOR-PACKAGED-001",
+        "MANUAL-A11Y-ATSPI-CLAIMED-001"
+      ],
+      "title": "Focus Order"
+    },
+    {
+      "automatable": "no",
+      "criterion": "2.4.7",
+      "inRepoEvidence": [],
+      "level": "AA",
+      "manualFollowUps": [
+        "MANUAL-A11Y-NARRATOR-PACKAGED-001",
+        "MANUAL-A11Y-ATSPI-CLAIMED-001",
+        "MANUAL-A11Y-FORCED-CONTRAST-001"
+      ],
+      "title": "Focus Visible"
+    },
+    {
+      "automatable": "no",
+      "criterion": "2.4.11",
+      "inRepoEvidence": [],
+      "level": "AA",
+      "manualFollowUps": [
+        "MANUAL-A11Y-NARRATOR-PACKAGED-001",
+        "MANUAL-A11Y-ATSPI-CLAIMED-001",
+        "MANUAL-A11Y-MAGNIFICATION-001"
+      ],
+      "title": "Focus Not Obscured (Minimum)"
+    },
+    {
+      "automatable": "yes",
+      "criterion": "2.5.7",
+      "inRepoEvidence": [
+        "A11Y-NO-DRAG-ONLY"
+      ],
+      "level": "AA",
+      "manualFollowUps": [
+        "MANUAL-A11Y-SWITCH-DESKTOP-001",
+        "MANUAL-A11Y-SWITCH-ANDROID-PHYSICAL-001"
+      ],
+      "title": "Dragging Movements"
+    },
+    {
+      "automatable": "yes",
+      "criterion": "2.5.8",
+      "inRepoEvidence": [
+        "A11Y-TARGET-SIZE"
+      ],
+      "level": "AA",
+      "manualFollowUps": [
+        "MANUAL-A11Y-TALKBACK-PHYSICAL-001",
+        "MANUAL-A11Y-VOICEOVER-PHYSICAL-001"
+      ],
+      "title": "Target Size (Minimum)"
+    },
+    {
+      "automatable": "partial",
+      "criterion": "3.3.1",
+      "inRepoEvidence": [
+        "A11Y-SEMANTICS-NAME-ROLE-STATE"
+      ],
+      "level": "A",
+      "manualFollowUps": [
+        "MANUAL-A11Y-TALKBACK-PHYSICAL-001",
+        "MANUAL-A11Y-VOICEOVER-PHYSICAL-001",
+        "MANUAL-A11Y-NARRATOR-PACKAGED-001",
+        "MANUAL-A11Y-ATSPI-CLAIMED-001"
+      ],
+      "title": "Error Identification"
+    },
+    {
+      "automatable": "partial",
+      "criterion": "4.1.2",
+      "inRepoEvidence": [
+        "A11Y-SEMANTICS-NAME-ROLE-STATE",
+        "A11Y-DESKTOP-MENU-SHORTCUTS"
+      ],
+      "level": "A",
+      "manualFollowUps": [
+        "MANUAL-A11Y-TALKBACK-PHYSICAL-001",
+        "MANUAL-A11Y-VOICEOVER-PHYSICAL-001",
+        "MANUAL-A11Y-NARRATOR-PACKAGED-001",
+        "MANUAL-A11Y-ATSPI-CLAIMED-001"
+      ],
+      "title": "Name, Role, Value"
+    }
+  ]
+}

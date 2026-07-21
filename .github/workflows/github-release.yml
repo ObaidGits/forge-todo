@@ -1,0 +1,241 @@
+name: GitHub Release distribution
+
+# Tag-triggered distribution: builds the Android APK (signed from CI secrets),
+# the Windows Inno Setup installer, and the Linux AppImage, then attaches them
+# all to a GitHub Release for the tag. Supabase sync keys are injected as
+# dart-defines ONLY from repository secrets; when unset the build still succeeds
+# and sync simply stays off (SupabaseSyncEnvironment.fromEnvironment).
+#
+# This file is additive — it does not modify platform-build.yml or release.yml.
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+
+# Least privilege by default; the release job elevates to contents: write.
+permissions:
+  contents: read
+
+concurrency:
+  group: github-release-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  FLUTTER_VERSION: 3.44.6
+  FLUTTER_REVISION: ee80f08bbf97172ec030b8751ceab557177a34a6
+
+jobs:
+  # ---------------------------------------------------------------------------
+  linux:
+    name: Linux AppImage
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Install pinned Flutter toolchain
+        shell: bash
+        run: |
+          git clone --filter=blob:none --no-checkout https://github.com/flutter/flutter.git "$RUNNER_TEMP/flutter"
+          git -C "$RUNNER_TEMP/flutter" checkout --detach "$FLUTTER_REVISION"
+          echo "$RUNNER_TEMP/flutter/bin" >> "$GITHUB_PATH"
+      - name: Install Linux build packages
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y \
+            clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev \
+            libsecret-1-dev libkeybinder-3.0-dev fuse libfuse2
+      - name: Verify toolchain and lockfile
+        shell: bash
+        run: |
+          test "$(cat .flutter-version)" = "$FLUTTER_VERSION"
+          flutter --version
+          flutter pub get --enforce-lockfile
+      - name: Build Linux release (sync keys from secrets; empty = sync off)
+        shell: bash
+        run: |
+          flutter build linux --release \
+            --dart-define=FORGE_SUPABASE_URL=${{ secrets.SUPABASE_URL }} \
+            --dart-define=FORGE_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}
+      - name: Package AppImage
+        shell: bash
+        run: bash packaging/linux/build-appimage.sh
+      - name: Upload AppImage artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: forge-linux-appimage
+          path: Forge-*-x86_64.AppImage
+          if-no-files-found: error
+
+  # ---------------------------------------------------------------------------
+  windows:
+    name: Windows installer
+    runs-on: windows-2025
+    timeout-minutes: 45
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Install pinned Flutter toolchain
+        shell: pwsh
+        run: |
+          git clone --filter=blob:none --no-checkout https://github.com/flutter/flutter.git "$env:RUNNER_TEMP/flutter"
+          git -C "$env:RUNNER_TEMP/flutter" checkout --detach "$env:FLUTTER_REVISION"
+          "$env:RUNNER_TEMP/flutter/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+      - name: Verify toolchain and lockfile
+        shell: bash
+        run: |
+          test "$(cat .flutter-version)" = "$FLUTTER_VERSION"
+          flutter --version
+          flutter pub get --enforce-lockfile
+      - name: Build Windows release (sync keys from secrets; empty = sync off)
+        shell: bash
+        run: |
+          flutter build windows --release \
+            --dart-define=FORGE_SUPABASE_URL=${{ secrets.SUPABASE_URL }} \
+            --dart-define=FORGE_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}
+      - name: Resolve app version from pubspec
+        id: ver
+        shell: bash
+        run: |
+          raw="$(grep -E '^version:' pubspec.yaml | head -1 | sed -E 's/^version:[[:space:]]*//')"
+          echo "version=${raw%%+*}" >> "$GITHUB_OUTPUT"
+      - name: Install Inno Setup
+        shell: pwsh
+        run: choco install innosetup --no-progress -y
+      - name: Download VC++ redistributable
+        shell: pwsh
+        run: Invoke-WebRequest "https://aka.ms/vs/17/release/vc_redist.x64.exe" -OutFile "packaging/windows/vc_redist.x64.exe"
+      - name: Compile installer
+        shell: pwsh
+        run: |
+          & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" `
+            "/DAppVersion=${{ steps.ver.outputs.version }}" `
+            "packaging\windows\forge.iss"
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: forge-windows-setup
+          path: packaging/windows/Forge-*-windows-setup.exe
+          if-no-files-found: error
+
+  # ---------------------------------------------------------------------------
+  android:
+    name: Android APK
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Set up JDK 17
+        uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407
+      - name: Install pinned Flutter toolchain
+        shell: bash
+        run: |
+          git clone --filter=blob:none --no-checkout https://github.com/flutter/flutter.git "$RUNNER_TEMP/flutter"
+          git -C "$RUNNER_TEMP/flutter" checkout --detach "$FLUTTER_REVISION"
+          echo "$RUNNER_TEMP/flutter/bin" >> "$GITHUB_PATH"
+      - name: Verify toolchain and lockfile
+        shell: bash
+        run: |
+          test "$(cat .flutter-version)" = "$FLUTTER_VERSION"
+          flutter --version
+          flutter pub get --enforce-lockfile
+      - name: Configure release signing from secrets (optional)
+        shell: bash
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          if [ -n "$ANDROID_KEYSTORE_BASE64" ] && [ -n "$ANDROID_KEYSTORE_PASSWORD" ] \
+             && [ -n "$ANDROID_KEY_PASSWORD" ] && [ -n "$ANDROID_KEY_ALIAS" ]; then
+            echo "Signing secrets present — configuring release signing."
+            echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > android/upload-keystore.jks
+            cat > android/key.properties <<EOF
+          storePassword=$ANDROID_KEYSTORE_PASSWORD
+          keyPassword=$ANDROID_KEY_PASSWORD
+          keyAlias=$ANDROID_KEY_ALIAS
+          storeFile=upload-keystore.jks
+          EOF
+          else
+            echo "Signing secrets absent — release APK will be UNSIGNED (build still succeeds)."
+          fi
+      - name: Build Android APK (sync keys from secrets; empty = sync off)
+        shell: bash
+        run: |
+          flutter build apk --release \
+            --dart-define=FORGE_SUPABASE_URL=${{ secrets.SUPABASE_URL }} \
+            --dart-define=FORGE_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: forge-android-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error
+
+  # ---------------------------------------------------------------------------
+  release:
+    name: Publish GitHub Release
+    needs: [linux, windows, android]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    # Only publish a Release for real tag pushes, not manual dispatch runs.
+    if: startsWith(github.ref, 'refs/tags/')
+    permissions:
+      contents: write
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Resolve app version from pubspec
+        id: ver
+        shell: bash
+        run: |
+          raw="$(grep -E '^version:' pubspec.yaml | head -1 | sed -E 's/^version:[[:space:]]*//')"
+          echo "version=${raw%%+*}" >> "$GITHUB_OUTPUT"
+      - name: Download all build artifacts
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
+        with:
+          path: dist
+      - name: Assemble and rename release assets
+        shell: bash
+        run: |
+          ver="${{ steps.ver.outputs.version }}"
+          mkdir -p release-assets
+          # Android APK -> Forge-<ver>.apk
+          apk="$(find dist -name 'app-release.apk' | head -1)"
+          [ -n "$apk" ] && cp "$apk" "release-assets/Forge-${ver}.apk"
+          # Windows installer -> Forge-<ver>-windows-setup.exe
+          exe="$(find dist -name 'Forge-*-windows-setup.exe' | head -1)"
+          [ -n "$exe" ] && cp "$exe" "release-assets/Forge-${ver}-windows-setup.exe"
+          # Linux AppImage -> Forge-<ver>-x86_64.AppImage
+          appimage="$(find dist -name 'Forge-*-x86_64.AppImage' | head -1)"
+          [ -n "$appimage" ] && cp "$appimage" "release-assets/Forge-${ver}-x86_64.AppImage"
+          echo "Release assets:"
+          ls -la release-assets
+      - name: Create or update the GitHub Release
+        uses: softprops/action-gh-release@c95fe1489396fe8a9eb87c0abf8aa5b2ef267fda
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Forge ${{ steps.ver.outputs.version }}
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+          files: |
+            release-assets/Forge-${{ steps.ver.outputs.version }}.apk
+            release-assets/Forge-${{ steps.ver.outputs.version }}-windows-setup.exe
+            release-assets/Forge-${{ steps.ver.outputs.version }}-x86_64.AppImage

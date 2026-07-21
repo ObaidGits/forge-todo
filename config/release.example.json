@@ -1,0 +1,5 @@
+{
+  "FORGE_ENV": "production",
+  "FORGE_RELEASE_CHANNEL": "nightly",
+  "FORGE_BUILD_REVISION": "replace-with-source-revision"
+}

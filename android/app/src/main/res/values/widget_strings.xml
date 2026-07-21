@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_today_tasks_title">Today</string>
+    <string name="widget_habit_checklist_title">Habits</string>
+    <string name="widget_quick_note_title">Quick Note</string>
+    <string name="widget_study_focus_title">Focus</string>
+    <string name="widget_roadmap_progress_title">Roadmap</string>
+
+    <string name="widget_today_tasks_description">Today\'s tasks with quick complete.</string>
+    <string name="widget_habit_checklist_description">Today\'s habits with quick check-in.</string>
+    <string name="widget_quick_note_description">Open secure quick capture.</string>
+    <string name="widget_study_focus_description">Next focus/study countdown.</string>
+    <string name="widget_roadmap_progress_description">Pinned goal roadmap progress.</string>
+
+    <string name="widget_stale_badge">Stale</string>
+    <string name="widget_placeholder_open">Open Forge</string>
+    <string name="widget_placeholder_locked">Locked — open Forge to view</string>
+    <string name="widget_placeholder_empty">Nothing for today</string>
+    <string name="widget_quick_note_capture">Tap to capture a note</string>
+    <string name="widget_row_check_description">Toggle completion</string>
+</resources>

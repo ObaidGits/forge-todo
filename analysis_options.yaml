@@ -1,0 +1,42 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "lib/l10n/generated/**"
+    # Wave 0 probe packages are separate Dart/Flutter packages with their own
+    # pubspec and analysis_options; they are analyzed and tested in their own
+    # package context. The root analyzer must not descend into them, otherwise
+    # its global generated-code exclusion breaks their generated dependencies.
+    - "tool/probes/**"
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+  errors:
+    missing_required_param: error
+    missing_return: error
+    todo: error
+
+formatter:
+  page_width: 80
+
+linter:
+  rules:
+    always_declare_return_types: true
+    always_use_package_imports: true
+    avoid_catches_without_on_clauses: true
+    avoid_dynamic_calls: true
+    avoid_print: true
+    cancel_subscriptions: true
+    close_sinks: true
+    directives_ordering: true
+    discarded_futures: true
+    no_adjacent_strings_in_list: true
+    only_throw_errors: true
+    prefer_final_in_for_each: true
+    prefer_final_locals: true
+    require_trailing_commas: true
+    sort_pub_dependencies: true
+    unawaited_futures: true
+    unnecessary_await_in_return: true

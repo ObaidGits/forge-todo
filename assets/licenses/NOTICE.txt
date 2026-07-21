@@ -1,0 +1,10 @@
+Forge is licensed under the MIT License. See the repository LICENSE file.
+
+This application includes Flutter 3.44.6 (framework revision
+ee80f08bbf97172ec030b8751ceab557177a34a6), licensed under the BSD 3-Clause
+license. License texts for Flutter framework and package components are also
+available through Flutter's in-application LicensePage at runtime.
+
+Corresponding source and build instructions:
+https://github.com/flutter/flutter/tree/ee80f08bbf97172ec030b8751ceab557177a34a6
+https://github.com/forge-productivity/forge

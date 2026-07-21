@@ -1,0 +1,9 @@
+{
+  "manifest_version": 1,
+  "fixtures": [
+    {
+      "path": "v1/foundation_empty.json",
+      "sha256": "ffcbcac4bc94c559488468ca3f60ccda360fa2ae75f821de8bd9ce0efadd38db"
+    }
+  ]
+}

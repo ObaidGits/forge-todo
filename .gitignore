@@ -1,0 +1,101 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# Typed local build configuration (examples are intentionally versioned).
+/config/*.json
+!/config/*.example.json
+
+# Generated localization diagnostics.
+/untranslated_messages.json
+
+# Release-artifact automation output (tool/release/artifacts.py)
+/release-out/
+
+# Local developer/IDE junk (safe cleanup). Most patterns below are already
+# covered above (*.log, *.iml, .idea/, .flutter-plugins-dependencies); this
+# adds the DevTools per-project options file that isn't otherwise matched.
+devtools_options.yaml
+
+# ---------------------------------------------------------------------------
+# Development/spec/governance material (kept LOCAL, not published)
+#
+# These paths hold Kiro specs, ADRs, evidence/trace/governance records, and the
+# Python governance/probe tooling used for internal development. They are kept
+# on disk for future development but are intentionally NOT git-tracked in this
+# public repository. Paths are anchored (leading slash) so similarly-named files
+# elsewhere are not accidentally ignored.
+#
+# NOTE: a fresh clone must still pass `flutter pub get && flutter analyze &&
+# flutter test`. The only published test that reads from this material is the
+# accessibility capability-matrix artifact test, so its single input JSON is
+# explicitly re-included below.
+# ---------------------------------------------------------------------------
+
+# Kiro spec workspace (requirements/design/tasks/steering).
+/.kiro/
+
+# Internal docs: architecture decision records, machine evidence, trace matrix,
+# governance policy, generated contracts, and internal release records.
+/docs/adr/
+/docs/evidence/*
+!/docs/evidence/accessibility-capability-matrix.v1.json
+/docs/trace/
+/docs/governance/
+/docs/generated/
+/docs/release/
+
+# Python governance/probe tooling and its tests (not part of the app build).
+/tool/
+
+# Spec-governance CI workflows whose inputs (tool/, docs/evidence, docs/trace)
+# are ignored above. The distribution workflow (github-release.yml) and the
+# self-contained dependency-review.yml remain published.
+/.github/workflows/quality.yml
+/.github/workflows/platform-build.yml
+/.github/workflows/release.yml
+/.github/workflows/maintenance-annual.yml
+/.github/workflows/maintenance-monthly.yml
+/.github/workflows/maintenance-quarterly.yml

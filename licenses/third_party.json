@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "components": [
+    {
+      "name": "Flutter",
+      "version": "3.44.6",
+      "revision": "ee80f08bbf97172ec030b8751ceab557177a34a6",
+      "license": "BSD-3-Clause",
+      "licenseSha256": "a598db94b6290ffbe10b5ecf911057b6a943351c727fdda9e5f2891d68700a20",
+      "source": "https://github.com/flutter/flutter/tree/ee80f08bbf97172ec030b8751ceab557177a34a6"
+    }
+  ]
+}

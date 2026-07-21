@@ -1,0 +1,11 @@
+{
+  "fixture_id": "foundation_empty_v1",
+  "fixture_format_version": 1,
+  "data_schema_version": 1,
+  "release_tag": "MVP",
+  "payload": {
+    "profiles": [],
+    "life_areas": [],
+    "command_receipts": []
+  }
+}

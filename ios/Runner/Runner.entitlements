@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Shared App Group so the app can write the redacted widget snapshot the
+	     WidgetKit extension reads (R-WIDGET-002). Wiring CODE_SIGN_ENTITLEMENTS
+	     to this file for the Runner target is a manual Xcode step
+	     (MANUAL-WIDGET-IOS-APPGROUP). -->
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.app.forge.forge.widgets</string>
+	</array>
+</dict>
+</plist>

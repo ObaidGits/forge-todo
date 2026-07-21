@@ -1,0 +1,5 @@
+{
+  "FORGE_ENV": "development",
+  "FORGE_RELEASE_CHANNEL": "nightly",
+  "FORGE_BUILD_REVISION": "local-development"
+}
